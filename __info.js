@@ -5,7 +5,9 @@ export const emoji = "🎀";
 export const usageMarkdown = ["WIP"];
 
 /** @type {import("../..").Gatekeep} */
-export const gatekeep = async () => {
+export const gatekeep = async ({ folderInfo }) => {
+	if (folderInfo.kit) return { advice: "can only be selected when using Vite (for now)" };
+
 	return { able: true };
 };
 
@@ -17,9 +19,10 @@ export const options = {};
 /** @type {import("../..").Heuristic[]} */
 export const heuristics = [
 	{
-		description: "`routify` is installed",
+		description: "`@roxi/routify` is installed",
 		async detector({ folderInfo }) {
-			return "routify" in folderInfo.allDependencies;
+			return "@roxi/routify" in folderInfo.allDependencies;
 		},
 	},
+	// TODO: more detectors
 ];

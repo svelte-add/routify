@@ -12,7 +12,7 @@ npx svelte-add@latest routify
 
 ### 🏞 Supported environments
 
-This adder supports SvelteKit and Vite-powered Svelte apps (all the environments `svelte-add` currently supports).
+This adder only supports Vite-powered Svelte apps (but not SvelteKit).
 
 ### ⚙️ Options
 

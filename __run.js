@@ -1,3 +1,5 @@
+import { Comment, Element, Text } from "domhandler";
+import { appendChild, prependChild } from "domutils";
 import { updateViteConfig } from "../../adder-tools.js";
 import { addImport, setDefault } from "../../ast-tools.js";
 
@@ -53,17 +55,19 @@ export const run = async ({ folderInfo, install, updateJavaScript, updateSvelte 
 	} else {
 		await updateSvelte({
 			path: "/src/App.svelte",
-			async markup({ posthtml }) {
-				posthtml.unshift({
-					tag: "Router",
-					attrs: {
+			async markup({ domhandler }) {
+				const root = /** @type {import("domhandler").Element} */ (domhandler);
+
+				prependChild(
+					root,
+					new Element("Router", {
 						routes: "{routes}",
-					},
-				});
+					})
+				);
+				prependChild(root, new Text("\n"));
+				prependChild(root, new Comment(" Remove the rest of this file's contents after the router: "));
 
-				posthtml.unshift("<!-- Remove the rest of this file's contents after the router: -->\n");
-
-				return { posthtml };
+				return { domhandler };
 			},
 			async script({ lang, typeScriptEstree }) {
 				addImport({ cjs: false, default: "routes", package: "../.routify/routes.default.js", typeScriptEstree });
@@ -78,17 +82,13 @@ export const run = async ({ folderInfo, install, updateJavaScript, updateSvelte 
 
 		await updateSvelte({
 			path: "/src/routes/index.svelte",
-			async markup({ posthtml }) {
-				posthtml.push({
-					tag: "h1",
-					content: "Routify 3 App",
-				});
-				posthtml.push({
-					tag: "p",
-					content: "This is the index page.",
-				});
+			async markup({ domhandler }) {
+				const root = /** @type {import("domhandler").Element} */ (domhandler);
 
-				return { posthtml };
+				appendChild(root, new Element("h1", {}, [new Text("Routify 3 App")]));
+				appendChild(root, new Element("p", {}, [new Text("This is the index page.")]));
+
+				return { domhandler };
 			},
 		});
 	}

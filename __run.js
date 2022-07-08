@@ -6,8 +6,6 @@ import { addImport, setDefault } from "../../ast-tools.js";
 /** @type {import("../..").AdderRun<import("./__info.js").Options>} */
 export const run = async ({ folderInfo, install, updateJavaScript, updateSvelte }) => {
 	await updateViteConfig({
-		folderInfo,
-
 		mutateViteConfig(viteConfig, containingFile, cjs) {
 			let routifyVitePluginImportedAs = "routify";
 			addImport({ require: routifyVitePluginImportedAs, cjs, default: routifyVitePluginImportedAs, package: "@roxi/routify/vite-plugin", typeScriptEstree: containingFile });
@@ -56,7 +54,7 @@ export const run = async ({ folderInfo, install, updateJavaScript, updateSvelte 
 		await updateSvelte({
 			path: "/src/App.svelte",
 			async markup({ domhandler }) {
-				const root = /** @type {import("domhandler").Element} */ (domhandler);
+				const root = /** @type {import("domhandler").Element}*/ (/** @type {unknown} */ (domhandler));
 
 				prependChild(
 					root,
@@ -83,7 +81,7 @@ export const run = async ({ folderInfo, install, updateJavaScript, updateSvelte 
 		await updateSvelte({
 			path: "/src/routes/index.svelte",
 			async markup({ domhandler }) {
-				const root = /** @type {import("domhandler").Element} */ (domhandler);
+				const root = /** @type {import("domhandler").Element}*/ (/** @type {unknown} */ (domhandler));
 
 				appendChild(root, new Element("h1", {}, [new Text("Routify 3 App")]));
 				appendChild(root, new Element("p", {}, [new Text("This is the index page.")]));

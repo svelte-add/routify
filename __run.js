@@ -46,6 +46,7 @@ export const run = async ({ folderInfo, install, updateJavaScript, updateSvelte 
 			}
 		},
 		updateJavaScript,
+		folderInfo,
 	});
 
 	if (folderInfo.kit) {

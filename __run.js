@@ -61,7 +61,7 @@ export const run = async ({ folderInfo, install, updateJavaScript, updateSvelte 
 					root,
 					new Element("Router", {
 						routes: "{routes}",
-					})
+					}),
 				);
 				prependChild(root, new Text("\n"));
 				prependChild(root, new Comment(" Remove the rest of this file's contents after the router: "));

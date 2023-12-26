@@ -6,7 +6,7 @@ export const usageMarkdown = ["WIP"];
 
 /** @type {import("../..").Gatekeep} */
 export const gatekeep = async ({ folderInfo }) => {
-	if (folderInfo.kit) return { advice: "can only be selected when using Vite (for now)" };
+	if (folderInfo.kit) return { advice: "can only be selected when using Vite" };
 
 	return { able: true };
 };
@@ -24,5 +24,4 @@ export const heuristics = [
 			return "@roxi/routify" in folderInfo.allDependencies;
 		},
 	},
-	// TODO: more detectors
 ];

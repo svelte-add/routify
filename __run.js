@@ -86,6 +86,20 @@ export const run = async ({ folderInfo, install, updateJavaScript, updateSvelte 
 
 				appendChild(root, new Element("h1", {}, [new Text("Routify 3 App")]));
 				appendChild(root, new Element("p", {}, [new Text("This is the index page.")]));
+				appendChild(root, new Element("a", { href: "/test" }, [new Text("Go to test!")]));
+
+				return { domhandler };
+			},
+		});
+
+		await updateSvelte({
+			path: "/src/routes/test.svelte",
+			async markup({ domhandler }) {
+				const root = /** @type {import("domhandler").Element}*/ (/** @type {unknown} */ (domhandler));
+
+				appendChild(root, new Element("h1", {}, [new Text("Routify 3 App")]));
+				appendChild(root, new Element("p", {}, [new Text("This is the test page.")]));
+				appendChild(root, new Element("a", { href: "/" }, [new Text("Go to index!")]));
 
 				return { domhandler };
 			},
